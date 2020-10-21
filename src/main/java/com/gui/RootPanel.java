@@ -32,6 +32,9 @@ public class RootPanel extends JRootPane {
         contentPane.add(panel);
         contentPane.repaint();
         contentPane.revalidate();
+        if (panel.equals(gamePanel)){
+            gamePanel.requestFocus();
+        }
     }
 
     public MainMenu getMainMenu() {

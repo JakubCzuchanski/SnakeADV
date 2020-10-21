@@ -108,20 +108,21 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver(Graphics g) {
-        g.setColor(RED);
-        g.setFont(new Font("Arial",Font.BOLD, 100));
-        FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
-        g.drawString("Game over", (SCREEN_WIDTH - fontMetrics1.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
-        g.setColor(RED);
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + score, (SCREEN_WIDTH - fontMetrics2.stringWidth("Score: " + score)) / 2, (SCREEN_HEIGHT / 2) + 60);
-
-        g.setColor(BLUE);
-        g.setFont(new Font("Arial", Font.BOLD, 15));
-        FontMetrics fontMetrics3 = getFontMetrics(g.getFont());
-        g.drawString("Press key k to restart", (SCREEN_WIDTH - fontMetrics3.stringWidth("Press key k to restart")) / 2, (SCREEN_HEIGHT / 2) + 90);
+    public void gameOver() {
+        rootPanel.switchPanel(rootPanel.getGameOver());
+//        g.setColor(RED);
+//        g.setFont(new Font("Arial",Font.BOLD, 100));
+//        FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
+//        g.drawString("Game over", (SCREEN_WIDTH - fontMetrics1.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
+//        g.setColor(RED);
+//        g.setFont(new Font("Arial", Font.BOLD, 30));
+//        FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
+//        g.drawString("Score: " + score, (SCREEN_WIDTH - fontMetrics2.stringWidth("Score: " + score)) / 2, (SCREEN_HEIGHT / 2) + 60);
+//
+//        g.setColor(BLUE);
+//        g.setFont(new Font("Arial", Font.BOLD, 15));
+//        FontMetrics fontMetrics3 = getFontMetrics(g.getFont());
+//        g.drawString("Press key k to restart", (SCREEN_WIDTH - fontMetrics3.stringWidth("Press key k to restart")) / 2, (SCREEN_HEIGHT / 2) + 90);
 
     }
 
@@ -148,13 +149,13 @@ public class GamePanel extends JPanel implements ActionListener {
             g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
         }
         else
-            gameOver(g);
+            gameOver();
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(SCREEN_HEIGHT, SCREEN_WIDTH);
-    }
+//    @Override
+//    public Dimension getPreferredSize() {
+//        return new Dimension(SCREEN_HEIGHT, SCREEN_WIDTH);
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -203,5 +204,9 @@ public class GamePanel extends JPanel implements ActionListener {
                     break;
             }
         }
+    }
+
+    public int getScore() {
+        return score;
     }
 }

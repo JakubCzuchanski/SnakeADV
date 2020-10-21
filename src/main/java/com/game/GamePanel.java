@@ -42,7 +42,10 @@ public class GamePanel extends JPanel implements ActionListener {
     public void startGame() {
         running = true;
         random = new Random();
+        snakeX = new int[GAME_UNIT];
+        snakeY = new int[GAME_UNIT];
         newApple();
+        direction = 'R';
         timer = new Timer(DELAY, this);
         timer.start();
 
@@ -86,16 +89,16 @@ public class GamePanel extends JPanel implements ActionListener {
         if (running) {
             switch (direction) {
                 case 'L':
-                    snakeX[0] = snakeX[0] - UNIT;
+                    snakeX[0] -= UNIT;
                     break;
                 case 'R':
-                    snakeX[0] = snakeX[0] + UNIT;
+                    snakeX[0] += UNIT;
                     break;
                 case 'U':
-                    snakeY[0] = snakeY[0] - UNIT;
+                    snakeY[0] -= UNIT;
                     break;
                 case 'D':
-                    snakeY[0] = snakeY[0] + UNIT;
+                    snakeY[0] += UNIT;
                     break;
             }
         }
@@ -110,6 +113,12 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Arial", Font.BOLD, 30));
         FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
         g.drawString("Score: " + score, (SCREEN_WIDTH - fontMetrics2.stringWidth("Score: " + score)) / 2, (SCREEN_HEIGHT / 2) + 60);
+
+        g.setColor(BLUE);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
+        FontMetrics fontMetrics3 = getFontMetrics(g.getFont());
+        g.drawString("Press key k to restart", (SCREEN_WIDTH - fontMetrics3.stringWidth("Press key k to restart")) / 2, (SCREEN_HEIGHT / 2) + 90);
+
     }
 
     @Override
@@ -158,6 +167,15 @@ public class GamePanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             super.keyPressed(e);
+
+            char k = e.getKeyChar();
+            if(k == 'k'){
+                score = 0;
+                snakeSize = 8;
+                timer.stop();
+                startGame();
+            }
+
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     if (direction != 'R') {

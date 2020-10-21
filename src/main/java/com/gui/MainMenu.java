@@ -67,6 +67,13 @@ public class MainMenu extends JPanel {
         gbc.gridy = 3;
         add(settingButton, gbc);
 
+        gbc.insets = new Insets(20,20,20,20);
+        ButtonMenu exitButton = new ButtonMenu("Exit");
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(exitButton, gbc);
+
         playButton.addActionListener(e -> {
             System.out.println("Tutaj zacznie granie");
             rootPanel.switchPanel(rootPanel.getGamePanel());
@@ -94,6 +101,10 @@ public class MainMenu extends JPanel {
             rootPanel.switchPanel(rootPanel.getSettingsMenu());
         });
 
+        exitButton.addActionListener(e -> {
+            System.out.println("Wyjscie");
+            System.exit(0);
+        });
 
     }
 

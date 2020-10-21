@@ -2,6 +2,7 @@ package com.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.ToDoubleBiFunction;
 
 public class SignInMenu extends JPanel {
 
@@ -46,9 +47,6 @@ public class SignInMenu extends JPanel {
         gbc.gridy = 1;
         add(passTxtField, gbc);
 
-
-
-
         gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu loginButton = new ButtonMenu("Login");
         gbc.gridwidth = 2;
@@ -57,15 +55,46 @@ public class SignInMenu extends JPanel {
         add(loginButton, gbc);
 
         gbc.insets = new Insets(20, 20, 20, 20);
+        ButtonMenu guestButton = new ButtonMenu("Play as Guest");
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(guestButton, gbc);
+
+        gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu menuButton = new ButtonMenu("Back to Menu");
         menuButton.setFont(new Font("Chiller", Font.BOLD, 32));
         gbc.gridwidth = 2;
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         add(menuButton, gbc);
 
+        loginButton.addActionListener(e -> {
+            //TODO zaimplementować logowanie
 
-        menuButton.addActionListener(e -> {
+            System.out.println(loginTxtField.getText());
+            System.out.println(passTxtField.getPassword());
+
+//                loginTxtField
+//                passTxtField
+
+            System.out.println("Zaloguj!");
+//            rootPanel.switchPanel(rootPanel.getMainMenu());
+
+        });
+
+        guestButton.addActionListener(e ->
+
+        {
+            System.out.println("Tutaj zagrasz jako gość");
+            rootPanel.switchPanel(rootPanel.getGamePanel());
+
+        });
+
+
+        menuButton.addActionListener(e ->
+
+        {
             System.out.println("Wróc do menu");
             rootPanel.switchPanel(rootPanel.getMainMenu());
         });

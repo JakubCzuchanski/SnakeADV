@@ -12,13 +12,16 @@ public class RootPanel extends JRootPane {
     private SignInMenu signInMenu;
     private SignUpMenu signUpMenu;
     private GamePanel gamePanel;
+    private ScoreBoardMenu scoreBoardMenu;
 
     public RootPanel() {
         mainMenu = new MainMenu(this);
         settingsMenu = new SettingsMenu(this);
         signInMenu = new SignInMenu(this);
         signUpMenu = new SignUpMenu(this);
+        scoreBoardMenu = new ScoreBoardMenu(this);
         gamePanel = new GamePanel();
+
 
         contentPane.add(mainMenu);
 
@@ -49,6 +52,10 @@ public class RootPanel extends JRootPane {
 
     public GamePanel getGamePanel() {
         return gamePanel;
+    }
+
+    public ScoreBoardMenu getScoreBoardMenu() {
+        return scoreBoardMenu;
     }
 
     @Override

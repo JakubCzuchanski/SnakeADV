@@ -15,7 +15,6 @@ public class SignUpMenu extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
 
-
         gbc.insets = new Insets(5, 5, 5, 5);
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setFont(new Font("Chiller", Font.BOLD, 35));
@@ -45,8 +44,6 @@ public class SignUpMenu extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(ageTxtField, gbc);
-
-
 
 
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -95,11 +92,11 @@ public class SignUpMenu extends JPanel {
         add(passConfTxtField, gbc);
 
         gbc.insets = new Insets(20, 20, 20, 20);
-        ButtonMenu loginButton = new ButtonMenu("Sign Up!");
+        ButtonMenu registerButton = new ButtonMenu("Sign Up!");
         gbc.gridwidth = 2;
         gbc.gridx = 0;
         gbc.gridy = 5;
-        add(loginButton, gbc);
+        add(registerButton, gbc);
 
         gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu menuButton = new ButtonMenu("Back to Menu");
@@ -108,6 +105,19 @@ public class SignUpMenu extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 6;
         add(menuButton, gbc);
+
+        registerButton.addActionListener(e -> {
+            System.out.println("name " + nameTxtField.getText());
+            System.out.println("age " + ageTxtField.getText());
+            System.out.println("login " + loginTxtField.getText());
+            System.out.print("pass ");
+            System.out.println((passTxtField.getPassword()));
+            System.out.print("pass ");
+            System.out.println((passConfTxtField.getPassword()));
+
+            System.out.println("Zarejestrowano");
+            rootPanel.switchPanel(rootPanel.getMainMenu());
+        });
 
 
         menuButton.addActionListener(e -> {

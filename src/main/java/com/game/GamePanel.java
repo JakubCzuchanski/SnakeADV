@@ -1,5 +1,7 @@
 package com.game;
 
+import com.gui.RootPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,8 +14,8 @@ import static java.awt.Color.*;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    private static final int SCREEN_HEIGHT = 800;
-    private static final int SCREEN_WIDTH = 1000;
+    private static final int SCREEN_HEIGHT = 810;
+    private static final int SCREEN_WIDTH = 1080;
     private static final int UNIT = 30;
     private static final int GAME_UNIT = (SCREEN_HEIGHT * SCREEN_WIDTH) / UNIT;
     private int[] snakeX = new int[GAME_UNIT];
@@ -27,9 +29,11 @@ public class GamePanel extends JPanel implements ActionListener {
     char direction = 'R';
     private static final int DELAY = 80;
     private int score = 0;
+    RootPanel rootPanel;
 
+    public GamePanel(RootPanel gameFrame) {
+        rootPanel = gameFrame;
 
-    public GamePanel() {
         setLayout(null);
         setBackground(BLACK);
         this.setFocusable(true);

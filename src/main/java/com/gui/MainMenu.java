@@ -16,7 +16,7 @@ public class MainMenu extends JPanel {
     public MainMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
 
-        setBackground(Color.BLACK);
+//        setBackground(Color.BLACK);
         try{
             backgroundImage = ImageIO.read(new File("src/images/MenuBackground.jpeg"));
         }catch (IOException e){

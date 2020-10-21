@@ -20,7 +20,7 @@ public class RootPanel extends JRootPane {
         signInMenu = new SignInMenu(this);
         signUpMenu = new SignUpMenu(this);
         scoreBoardMenu = new ScoreBoardMenu(this);
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
 
 
         contentPane.add(mainMenu);
@@ -63,6 +63,6 @@ public class RootPanel extends JRootPane {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1100, 800);
+        return new Dimension(1080, 810);
     }
 }

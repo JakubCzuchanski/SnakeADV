@@ -1,5 +1,6 @@
 package com.gui;
 
+import com.game.GameOver;
 import com.game.GamePanel;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class RootPanel extends JRootPane {
     private SignUpMenu signUpMenu;
     private GamePanel gamePanel;
     private ScoreBoardMenu scoreBoardMenu;
+    private GameOver gameOver;
 
     public RootPanel() {
         mainMenu = new MainMenu(this);
@@ -20,7 +22,8 @@ public class RootPanel extends JRootPane {
         signInMenu = new SignInMenu(this);
         signUpMenu = new SignUpMenu(this);
         scoreBoardMenu = new ScoreBoardMenu(this);
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
+        gameOver = new GameOver(this);
 
 
         contentPane.add(mainMenu);
@@ -28,13 +31,18 @@ public class RootPanel extends JRootPane {
     }
 
     public void switchPanel(JPanel panel) {
+
         contentPane.removeAll();
-        contentPane.add(panel);
+        if (panel.equals(gamePanel)){
+            GamePanel newGamePanel = new GamePanel(this);
+            contentPane.add(newGamePanel);
+            newGamePanel.requestFocus();
+        }else {
+            contentPane.add(panel);
+        }
         contentPane.repaint();
         contentPane.revalidate();
-        if (panel.equals(gamePanel)){
-            gamePanel.requestFocus();
-        }
+        panel.requestFocus();
     }
 
     public MainMenu getMainMenu() {
@@ -59,6 +67,10 @@ public class RootPanel extends JRootPane {
 
     public ScoreBoardMenu getScoreBoardMenu() {
         return scoreBoardMenu;
+    }
+
+    public GameOver getGameOver() {
+        return gameOver;
     }
 
     @Override

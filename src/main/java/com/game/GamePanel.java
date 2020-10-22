@@ -1,19 +1,20 @@
 package com.game;
 
+import com.gui.RootPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import static java.awt.Color.*;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    private static final int SCREEN_HEIGHT = 800;
-    private static final int SCREEN_WIDTH = 1100;
+
+    private static final int SCREEN_HEIGHT = 810;
+    private static final int SCREEN_WIDTH = 1080;
     private static final int UNIT = 30;
     private static final int GAME_UNIT = (SCREEN_HEIGHT * SCREEN_WIDTH) / UNIT;
     private int[] snakeX = new int[GAME_UNIT];
@@ -27,10 +28,12 @@ public class GamePanel extends JPanel implements ActionListener {
     char direction = 'R';
     private static final int DELAY = 80;
     int score = 0;
+    RootPanel rootPanel;
 
 
+    public GamePanel(RootPanel gameFrame) {
+        rootPanel = gameFrame;
 
-    public GamePanel() {
         setLayout(null);
         setBackground(BLACK);
         this.setFocusable(true);
@@ -106,55 +109,52 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver(Graphics g) {
-        g.setColor(RED);
-        g.setFont(new Font("Arial", Font.BOLD, 100));
-        FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
-        g.drawString("Game over", (SCREEN_WIDTH - fontMetrics1.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
-        g.setColor(RED);
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + score, (SCREEN_WIDTH - fontMetrics2.stringWidth("Score: " + score)) / 2, (SCREEN_HEIGHT / 2) + 60);
+    public void gameOver() {
+        rootPanel.switchPanel(rootPanel.getGameOver());
+//        g.setColor(RED);
+//        g.setFont(new Font("Arial",Font.BOLD, 100));
+//        FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
+//        g.drawString("Game over", (SCREEN_WIDTH - fontMetrics1.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
+//        g.setColor(RED);
+//        g.setFont(new Font("Arial", Font.BOLD, 30));
+//        FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
+//        g.drawString("Score: " + score, (SCREEN_WIDTH - fontMetrics2.stringWidth("Score: " + score)) / 2, (SCREEN_HEIGHT / 2) + 60);
+//
+//        g.setColor(BLUE);
+//        g.setFont(new Font("Arial", Font.BOLD, 15));
+//        FontMetrics fontMetrics3 = getFontMetrics(g.getFont());
+//        g.drawString("Press key k to restart", (SCREEN_WIDTH - fontMetrics3.stringWidth("Press key k to restart")) / 2, (SCREEN_HEIGHT / 2) + 90);
 
-        g.setColor(BLUE);
-        g.setFont(new Font("Arial", Font.BOLD, 15));
-        FontMetrics fontMetrics3 = getFontMetrics(g.getFont());
-        g.drawString("Press key k to restart", (SCREEN_WIDTH - fontMetrics3.stringWidth("Press key k to restart")) / 2, (SCREEN_HEIGHT / 2) + 90);
 
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    protected void paintComponent(Graphics g){
+            super.paintComponent(g);
 
-        if (running) {
-            g.setColor(RED);
-            g.fillOval(appleX, appleY, UNIT, UNIT);
+            if (running) {
+                g.setColor(RED);
+                g.fillOval(appleX, appleY, UNIT, UNIT);
 
-            for (int i = 0; i < snakeSize; i++) {
-                if (i == 0) {
-                    g.setColor(GREEN);
-                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
-                } else {
-                    g.setColor(BLUE);
-                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+                for (int i = 0; i < snakeSize; i++) {
+                    if (i == 0) {
+                        g.setColor(GREEN);
+                        g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+                    } else {
+                        g.setColor(BLUE);
+                        g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+                    }
                 }
-            }
-            g.setColor(RED);
-            g.setFont(new Font("Arial", Font.BOLD, 30));
-            FontMetrics fontMetrics = getFontMetrics(g.getFont());
-            g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
-        } else {
-            gameOver(g);
+                g.setColor(RED);
+                g.setFont(new Font("Arial", Font.BOLD, 30));
+                FontMetrics fontMetrics = getFontMetrics(g.getFont());
+                g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
 
-
+            } else
+                gameOver();
         }
-    }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(SCREEN_HEIGHT, SCREEN_WIDTH);
-    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -165,4 +165,10 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         repaint();
     }
+
+
+    public int getScore() {
+        return score;
+    }
+
 }

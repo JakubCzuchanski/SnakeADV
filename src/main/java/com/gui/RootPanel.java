@@ -63,6 +63,6 @@ public class RootPanel extends JRootPane {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1100, 800);
+        return new Dimension(1080, 810);
     }
 }

@@ -13,27 +13,28 @@ import static java.awt.Color.*;
 public class GamePanel extends JPanel implements ActionListener {
 
     private static final int SCREEN_HEIGHT = 800;
-    private static final int SCREEN_WIDTH = 1000;
+    private static final int SCREEN_WIDTH = 1100;
     private static final int UNIT = 30;
     private static final int GAME_UNIT = (SCREEN_HEIGHT * SCREEN_WIDTH) / UNIT;
     private int[] snakeX = new int[GAME_UNIT];
     private int[] snakeY = new int[GAME_UNIT];
-    private int snakeSize = 8;
+    int snakeSize = 8;
     private int appleX;
     private int appleY;
     private boolean running;
-    private Timer timer;
+    Timer timer;
     private Random random;
     char direction = 'R';
     private static final int DELAY = 80;
-    private int score = 0;
+    int score = 0;
+
 
 
     public GamePanel() {
         setLayout(null);
         setBackground(BLACK);
         this.setFocusable(true);
-        this.addKeyListener(new MyKey());
+        this.addKeyListener(new MyKeyEvent(this));
         startGame();
 
 
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements ActionListener {
         direction = 'R';
         timer = new Timer(DELAY, this);
         timer.start();
+        requestFocus();
 
     }
 
@@ -57,8 +59,8 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkApple() {
-        for(int i = snakeSize; i > 0; i--){
-            if(snakeX[0] == appleX && snakeY[0] == appleY){
+        for (int i = snakeSize; i > 0; i--) {
+            if (snakeX[0] == appleX && snakeY[0] == appleY) {
                 newApple();
                 snakeSize++;
                 score += 23;
@@ -75,7 +77,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if (snakeX[0] < 0 || snakeX[0] > SCREEN_WIDTH || snakeY[0] < 0 || snakeY[0] > SCREEN_HEIGHT) {
             running = false;
         }
-        if(!running){
+        if (!running) {
             timer.stop();
         }
 
@@ -106,7 +108,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver(Graphics g) {
         g.setColor(RED);
-        g.setFont(new Font("Arial",Font.BOLD, 100));
+        g.setFont(new Font("Arial", Font.BOLD, 100));
         FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
         g.drawString("Game over", (SCREEN_WIDTH - fontMetrics1.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
         g.setColor(RED);
@@ -125,7 +127,7 @@ public class GamePanel extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if(running) {
+        if (running) {
             g.setColor(RED);
             g.fillOval(appleX, appleY, UNIT, UNIT);
 
@@ -142,9 +144,11 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setFont(new Font("Arial", Font.BOLD, 30));
             FontMetrics fontMetrics = getFontMetrics(g.getFont());
             g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
-        }
-        else
+        } else {
             gameOver(g);
+
+
+        }
     }
 
     @Override
@@ -160,44 +164,5 @@ public class GamePanel extends JPanel implements ActionListener {
             crash();
         }
         repaint();
-    }
-
-    class MyKey extends KeyAdapter {
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            super.keyPressed(e);
-
-            char k = e.getKeyChar();
-            if(k == 'k'){
-                score = 0;
-                snakeSize = 8;
-                timer.stop();
-                startGame();
-            }
-
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_LEFT:
-                    if (direction != 'R') {
-                        direction = 'L';
-                    }
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if (direction != 'L') {
-                        direction = 'R';
-                    }
-                    break;
-                case KeyEvent.VK_UP:
-                    if (direction != 'D') {
-                        direction = 'U';
-                    }
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if (direction != 'U') {
-                        direction = 'D';
-                    }
-                    break;
-            }
-        }
     }
 }

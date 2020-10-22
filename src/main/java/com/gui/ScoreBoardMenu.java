@@ -26,7 +26,11 @@ public class ScoreBoardMenu extends JPanel {
 
         menuButton.addActionListener(e -> {
             System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
     }

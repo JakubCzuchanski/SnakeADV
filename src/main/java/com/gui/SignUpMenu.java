@@ -99,11 +99,6 @@ public class SignUpMenu extends JPanel {
         gbc.gridy = 6;
         add(menuButton, gbc);
 
-        menuButton.addActionListener(e -> {
-            System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
-        });
-
         nameTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 nameTxtField.setBackground(Color.white);
@@ -143,12 +138,24 @@ public class SignUpMenu extends JPanel {
 
                 new AddPlayerToDataBase(nameTxtField.getText(), loginTxtField.getText(), passConfTxtField.getPassword());
 
-                rootPanel.switchPanel(rootPanel.getMainMenu());
+                try {
+                    rootPanel.switchPanel(rootPanel.getMainMenu());
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             } else {
                 System.out.println("podano błędne dane");
             }
+        });
 
 
+        menuButton.addActionListener(e -> {
+            System.out.println("Wróc do menu");
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
     }
 

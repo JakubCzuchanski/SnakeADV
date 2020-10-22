@@ -1,17 +1,24 @@
 package com.gui;
 
+import com.game.GamePanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class SettingsMenu extends JPanel {
 
     RootPanel rootPanel;
+    GamePanel gamePanel;
     int soundLvl = 10;
+    boolean value;
 
     public SettingsMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
+        gamePanel = new GamePanel(this.rootPanel);
 
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
@@ -89,11 +96,18 @@ public class SettingsMenu extends JPanel {
         });
 
 
-        wallHack.addActionListener(e -> {
-            if (wallHack.isSelected()){
-                System.out.println("Włączenie wallhacka");
-            }else {
-                System.out.println("Wyłączenie wallhacka");
+        wallHack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (wallHack.isSelected()) {
+                    System.out.println("Włączenie wallhacka");
+                    value = true;
+                    gamePanel.wallHack(value);
+                } else {
+                    System.out.println("Wyłączenie wallhacka");
+                    value = false;
+                    gamePanel.wallHack(value);
+                }
             }
         });
         wallHack.addMouseListener(new MouseAdapter() {

@@ -20,9 +20,9 @@ public class AddPlayerToDataBase extends DataBaseConst {
         try {
             connectToDb();
 
-            Array array = conn.createArrayOf("VARCHAR", charList.toArray());
+            Array array = conn.createArrayOf("varchar", charList.toArray());
 
-            prepStmt = conn.prepareStatement("INSERT INTO Player (id_player, name, login, password) VALUES (?, ?, ?, ?)");
+            prepStmt = conn.prepareStatement("INSERT INTO Player (id_player, namePlayer, loginPlayer, passwordPlayer) VALUES (?, ?, ?, ?)");
             prepStmt.setInt(1, returnNextID("Player"));
             prepStmt.setString(2, name);
             prepStmt.setString(3, login);

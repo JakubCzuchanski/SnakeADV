@@ -7,7 +7,7 @@ public class DataBaseConst {
     protected static final String JDBC_DRIVER = "org.postgresql.Driver";
     protected static final String URL = "jdbc:postgresql://localhost/SnakeADV";
     protected static final String LOGIN = "postgres";
-    protected static final String PASSWORD = "maslo1234";
+    protected static final String PASSWORD = "12345";
 
     protected Statement stmt;
     protected Connection conn;
@@ -43,7 +43,7 @@ public class DataBaseConst {
             e.printStackTrace();
         }
 
-//        System.out.println("\u001B[33m" + nextID + "\u001B[0m");
+        System.out.println("\u001B[33m" + nextID + "\u001B[0m");
 
 
         return nextID;

@@ -28,9 +28,9 @@ public class GameOver extends JPanel {
 
 // TODO wyświetlanie punktów ?????
 //        gbc.insets = new Insets(20, 20, 20, 20);
-//        JLabel scoreLabel = new JLabel(String.valueOf(GamePanel.staticScore));
+//        JLabel scoreLabel = new JLabel( ????????????????????? );
 //        gameOverLabel.setFont(new Font("Chiller", Font.BOLD, 230));
-//        gameOverLabel.setForeground(Color.red);
+//        gameOverLabel.setForeground(Color.yellow);
 //        gbc.gridwidth = 1;
 //        gbc.gridx = 0;
 //        gbc.gridy = 1;

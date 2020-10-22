@@ -1,11 +1,19 @@
 package com.gui;
 
+import com.jdbc.AddPlayerToDataBase;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class SignUpMenu extends JPanel {
 
     RootPanel rootPanel;
+
+    private JTextField nameTxtField;
+    private JTextField loginTxtField;
+    private JPasswordField passTxtField;
+    private JPasswordField passConfTxtField;
 
     public SignUpMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
@@ -24,27 +32,11 @@ public class SignUpMenu extends JPanel {
         add(nameLabel, gbc);
 
         gbc.insets = new Insets(5, 5, 5, 5);
-        JTextField nameTxtField = new JTextField();
+        nameTxtField = new JTextField();
         nameTxtField.setPreferredSize(new Dimension(200, 28));
         gbc.gridx = 1;
         gbc.gridy = 0;
         add(nameTxtField, gbc);
-
-        gbc.insets = new Insets(5, 5, 5, 5);
-        JLabel ageLabel = new JLabel("Age:");
-        ageLabel.setFont(new Font("Chiller", Font.BOLD, 35));
-        ageLabel.setForeground(Color.green);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(ageLabel, gbc);
-
-        gbc.insets = new Insets(5, 5, 5, 5);
-        JTextField ageTxtField = new JTextField();
-        ageTxtField.setPreferredSize(new Dimension(200, 28));
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(ageTxtField, gbc);
-
 
         gbc.insets = new Insets(5, 5, 5, 5);
         JLabel loginLabel = new JLabel("Login:");
@@ -55,7 +47,7 @@ public class SignUpMenu extends JPanel {
         add(loginLabel, gbc);
 
         gbc.insets = new Insets(5, 5, 5, 5);
-        JTextField loginTxtField = new JTextField();
+        loginTxtField = new JTextField();
         loginTxtField.setPreferredSize(new Dimension(200, 28));
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -70,7 +62,7 @@ public class SignUpMenu extends JPanel {
         add(passLabel, gbc);
 
         gbc.insets = new Insets(5, 5, 5, 5);
-        JPasswordField passTxtField = new JPasswordField();
+        passTxtField = new JPasswordField();
         passTxtField.setPreferredSize(new Dimension(200, 28));
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -85,11 +77,12 @@ public class SignUpMenu extends JPanel {
         add(passConfLabel, gbc);
 
         gbc.insets = new Insets(5, 5, 5, 5);
-        JPasswordField passConfTxtField = new JPasswordField();
+        passConfTxtField = new JPasswordField();
         passConfTxtField.setPreferredSize(new Dimension(200, 28));
         gbc.gridx = 1;
         gbc.gridy = 4;
         add(passConfTxtField, gbc);
+
 
         gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu registerButton = new ButtonMenu("Sign Up!");
@@ -106,25 +99,98 @@ public class SignUpMenu extends JPanel {
         gbc.gridy = 6;
         add(menuButton, gbc);
 
+        menuButton.addActionListener(e -> {
+            System.out.println("Wróc do menu");
+            rootPanel.switchPanel(rootPanel.getMainMenu());
+        });
+
+        nameTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nameTxtField.setBackground(Color.white);
+            }
+        });
+
+        loginTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                loginTxtField.setBackground(Color.white);
+            }
+        });
+
+        passTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                passTxtField.setBackground(Color.white);
+            }
+        });
+
+        passConfTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                passConfTxtField.setBackground(Color.white);
+            }
+        });
+
+
         registerButton.addActionListener(e -> {
             System.out.println("name " + nameTxtField.getText());
-            System.out.println("age " + ageTxtField.getText());
             System.out.println("login " + loginTxtField.getText());
             System.out.print("pass ");
             System.out.println((passTxtField.getPassword()));
             System.out.print("pass ");
             System.out.println((passConfTxtField.getPassword()));
 
-            System.out.println("Zarejestrowano");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+
+            if (verifyName(nameTxtField.getText()) & verifyLogin(loginTxtField.getText()) & verifyPass(passTxtField, passConfTxtField)) {
+                System.out.println("Zarejestrowano");
+
+                new AddPlayerToDataBase(nameTxtField.getText(), loginTxtField.getText(), passConfTxtField.getPassword());
+
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } else {
+                System.out.println("podano błędne dane");
+            }
+
+
         });
-
-
-        menuButton.addActionListener(e -> {
-            System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
-        });
-
     }
+
+
+    private boolean verifyName(String name) {
+
+        if (name.length() >= 3 && name.matches("[A-Za-z]+")) {
+            return true;
+        } else {
+            nameTxtField.setBackground(Color.RED);
+            return false;
+        }
+    }
+
+    private boolean verifyLogin(String login) {
+
+        if (login.length() >= 3 && login.matches("[a-zA-Z0-9]+")) {
+            return true;
+        } else {
+            loginTxtField.setBackground(Color.RED);
+            return false;
+        }
+    }
+
+    private boolean verifyPass(JPasswordField pass1, JPasswordField pass2) {
+
+        if (Arrays.equals(pass1.getPassword(), pass2.getPassword())) {
+            return verifyPass(pass1);
+        } else {
+            passConfTxtField.setBackground(Color.RED);
+            return false;
+        }
+    }
+
+    private boolean verifyPass(JPasswordField pass1) {
+        if (pass1.getPassword().length >= 4) {
+            return true;
+        } else {
+            passTxtField.setBackground(Color.RED);
+            return false;
+        }
+    }
+
 
 }

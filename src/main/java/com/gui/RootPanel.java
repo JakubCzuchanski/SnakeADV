@@ -16,7 +16,7 @@ public class RootPanel extends JRootPane {
     private ScoreBoardMenu scoreBoardMenu;
     private GameOver gameOver;
 
-    public RootPanel() {
+    public RootPanel() throws InterruptedException {
         mainMenu = new MainMenu(this);
         settingsMenu = new SettingsMenu(this);
         signInMenu = new SignInMenu(this);
@@ -30,7 +30,7 @@ public class RootPanel extends JRootPane {
 
     }
 
-    public void switchPanel(JPanel panel) {
+    public void switchPanel(JPanel panel) throws InterruptedException {
 
         contentPane.removeAll();
         if (panel.equals(gamePanel)){

@@ -77,29 +77,49 @@ public class MainMenu extends JPanel {
 
         playButton.addActionListener(e -> {
             System.out.println("Tutaj zacznie granie");
-            rootPanel.switchPanel(rootPanel.getGamePanel());
+            try {
+                rootPanel.switchPanel(rootPanel.getGamePanel());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
         scoreButton.addActionListener(e -> {
             System.out.println("Punkciki");
-            rootPanel.switchPanel(rootPanel.getScoreBoardMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getScoreBoardMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
 
         signInButton.addActionListener(e -> {
             System.out.println("Logowanie");
-            rootPanel.switchPanel(rootPanel.getSignInMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getSignInMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
 
         signUpButton.addActionListener(e -> {
             System.out.println("Rejestracja");
-            rootPanel.switchPanel(rootPanel.getSignUpMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getSignUpMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
         settingButton.addActionListener(e -> {
             System.out.println("Ustawienia");
-            rootPanel.switchPanel(rootPanel.getSettingsMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getSettingsMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
         exitButton.addActionListener(e -> {

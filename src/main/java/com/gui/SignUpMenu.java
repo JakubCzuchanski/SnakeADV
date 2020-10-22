@@ -116,13 +116,21 @@ public class SignUpMenu extends JPanel {
             System.out.println((passConfTxtField.getPassword()));
 
             System.out.println("Zarejestrowano");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
 
         menuButton.addActionListener(e -> {
             System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
     }

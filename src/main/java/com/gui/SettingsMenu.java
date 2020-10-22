@@ -16,7 +16,7 @@ public class SettingsMenu extends JPanel {
     int soundLvl = 10;
 
 
-    public SettingsMenu(RootPanel gameFrame) {
+    public SettingsMenu(RootPanel gameFrame) throws InterruptedException {
         this.rootPanel = gameFrame;
         gamePanel = new GamePanel(this.rootPanel);
 
@@ -137,7 +137,11 @@ public class SettingsMenu extends JPanel {
 
         menuButton.addActionListener(e -> {
             System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
     }

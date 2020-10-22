@@ -35,9 +35,11 @@ public class GamePanel extends JPanel implements ActionListener {
     RootPanel rootPanel;
     static boolean isWallHack;
     private int appleEaten = 0;
+    private int timeGame = 0;
 
 
-    public GamePanel(RootPanel gameFrame) {
+
+    public GamePanel(RootPanel gameFrame) throws InterruptedException {
         this.rootPanel = gameFrame;
         setLayout(null);
         setBackground(BLACK);
@@ -48,7 +50,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public void startGame() {
+    public void startGame() throws InterruptedException {
         running = true;
         random = new Random();
         snakeX = new int[GAME_UNIT];
@@ -58,6 +60,7 @@ public class GamePanel extends JPanel implements ActionListener {
         direction = 'R';
         timer = new Timer(DELAY, this);
         timer.start();
+        stoper();
         requestFocus();
 
     }
@@ -68,6 +71,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void newApple() {
+
         appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
         appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT)) * UNIT;
     }
@@ -83,22 +87,40 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void drawBadApple(){
-        badAppleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
-        badAppleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT)) * UNIT;
+
+    public void drawBadApple() {
+
+            badAppleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
+            badAppleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT)) * UNIT;
+        }
+
+
+
+    public void stoper() throws InterruptedException {
+
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                timeGame++;
+            }
+        }).start();
     }
 
     public void checkBadApple() {
         for (int i = snakeSize; i > 0; i--) {
             if (snakeX[0] == badAppleX && snakeY[0] == badAppleY) {
                 drawBadApple();
-                snakeSize++;
-                score -= 10;
+                score -= 23;
             }
+
         }
     }
 
-    public void eclipseEffect(){
+    public void eclipseEffect() {
 
     }
 
@@ -168,7 +190,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver() {
+    public void gameOver() throws InterruptedException {
         rootPanel.switchPanel(rootPanel.getGameOver());
 
     }
@@ -182,6 +204,7 @@ public class GamePanel extends JPanel implements ActionListener {
             g.fillOval(appleX, appleY, UNIT, UNIT);
             g.setColor(MAGENTA);
             g.fillOval(badAppleX, badAppleY, UNIT, UNIT);
+
 
             for (int i = 0; i < snakeSize; i++) {
                 if (i == 0) {
@@ -202,8 +225,18 @@ public class GamePanel extends JPanel implements ActionListener {
             FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
             g.drawString("Apple: " + appleEaten, (SCREEN_WIDTH - fontMetrics1.stringWidth("Apple: " + appleEaten)) / 30, 30);
 
-        } else
-            gameOver();
+            g.setColor(RED);
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
+            g.drawString("Time: " + timeGame, (SCREEN_WIDTH - fontMetrics2.stringWidth("Time: " + timeGame)) / 5, 30);
+
+        } else {
+            try {
+                gameOver();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -215,7 +248,6 @@ public class GamePanel extends JPanel implements ActionListener {
             checkBadApple();
             crash();
             wallHackMode();
-
         }
         repaint();
     }

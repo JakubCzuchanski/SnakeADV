@@ -56,12 +56,20 @@ public class GameOver extends JPanel {
 
         playButton.addActionListener(e -> {
             System.out.println("graj ponownie");
-            rootPanel.switchPanel(rootPanel.getGamePanel());
+            try {
+                rootPanel.switchPanel(rootPanel.getGamePanel());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
         menuButton.addActionListener(e -> {
             System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
     }

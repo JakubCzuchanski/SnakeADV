@@ -87,7 +87,11 @@ public class SignInMenu extends JPanel {
 
         {
             System.out.println("Tutaj zagrasz jako gość");
-            rootPanel.switchPanel(rootPanel.getGamePanel());
+            try {
+                rootPanel.switchPanel(rootPanel.getGamePanel());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
 
         });
 
@@ -96,7 +100,11 @@ public class SignInMenu extends JPanel {
 
         {
             System.out.println("Wróc do menu");
-            rootPanel.switchPanel(rootPanel.getMainMenu());
+            try {
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         });
 
     }

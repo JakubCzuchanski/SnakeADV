@@ -3,6 +3,7 @@ package com.game;
 import com.gui.RootPanel;
 import com.gui.SettingsMenu;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,8 +31,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private static final int DELAY = 80;
     int score = 0;
     RootPanel rootPanel;
-    public boolean isWallHack = false;
-
+    static boolean isWallHack;
 
 
     public GamePanel(RootPanel gameFrame) {
@@ -57,9 +57,9 @@ public class GamePanel extends JPanel implements ActionListener {
         requestFocus();
 
     }
-    public void wallHack(boolean value){
+
+    public static void wallHack(boolean value) {
         isWallHack = value;
-        System.out.println("dodano true");
     }
 
     public void newApple() {
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void crash() {
-        if(isWallHack == false) {
+        if (!isWallHack) {
             for (int i = 0; i < snakeSize; i++) {
                 if (snakeX[0] == snakeX[i + 1] && snakeY[0] == snakeY[i + 1]) {
                     running = false;
@@ -91,22 +91,22 @@ public class GamePanel extends JPanel implements ActionListener {
                 timer.stop();
             }
         }
-        else if(isWallHack == true){
+        if (isWallHack) {
             for (int i = 0; i < snakeSize; i++) {
                 if (snakeX[0] == snakeX[i + 1] && snakeY[0] == snakeY[i + 1]) {
                     running = false;
                 }
             }
-            if (snakeX[0] < 0){
+            if (snakeX[0] < 0) {
                 snakeX[0] = SCREEN_WIDTH;
             }
-            if(snakeX[0] > SCREEN_WIDTH){
+            if (snakeX[0] > SCREEN_WIDTH) {
                 snakeX[0] = 0;
             }
-            if(snakeY[0] < 0){
+            if (snakeY[0] < 0) {
                 snakeY[0] = SCREEN_HEIGHT;
             }
-            if(snakeY[0] > SCREEN_HEIGHT){
+            if (snakeY[0] > SCREEN_HEIGHT) {
                 snakeY[0] = 0;
             }
             if (!running) {
@@ -114,8 +114,8 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
         }
-
     }
+
 
     public void move() {
         for (int i = snakeSize; i > 0; i--) {
@@ -146,31 +146,30 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     @Override
-    protected void paintComponent(Graphics g){
-            super.paintComponent(g);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-            if (running) {
-                g.setColor(RED);
-                g.fillOval(appleX, appleY, UNIT, UNIT);
+        if (running) {
+            g.setColor(RED);
+            g.fillOval(appleX, appleY, UNIT, UNIT);
 
-                for (int i = 0; i < snakeSize; i++) {
-                    if (i == 0) {
-                        g.setColor(GREEN);
-                        g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
-                    } else {
-                        g.setColor(BLUE);
-                        g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
-                    }
+            for (int i = 0; i < snakeSize; i++) {
+                if (i == 0) {
+                    g.setColor(GREEN);
+                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+                } else {
+                    g.setColor(BLUE);
+                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
                 }
-                g.setColor(RED);
-                g.setFont(new Font("Arial", Font.BOLD, 30));
-                FontMetrics fontMetrics = getFontMetrics(g.getFont());
-                g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
+            }
+            g.setColor(RED);
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            FontMetrics fontMetrics = getFontMetrics(g.getFont());
+            g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
 
-            } else
-                gameOver();
-        }
-
+        } else
+            gameOver();
+    }
 
 
     @Override
@@ -179,6 +178,7 @@ public class GamePanel extends JPanel implements ActionListener {
             move();
             checkApple();
             crash();
+
         }
         repaint();
     }

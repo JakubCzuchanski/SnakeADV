@@ -13,8 +13,9 @@ public class SettingsMenu extends JPanel {
 
     RootPanel rootPanel;
     GamePanel gamePanel;
+    public JCheckBox wallHack;
     int soundLvl = 10;
-    boolean value;
+
 
     public SettingsMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
@@ -39,7 +40,7 @@ public class SettingsMenu extends JPanel {
 
 
 
-        JCheckBox wallHack = new JCheckBox("Wall Hack");
+        wallHack = new JCheckBox("Wall Hack");
         wallHack.setFont(new Font("Chiller", Font.BOLD, 30));
         wallHack.setSize(60, 60);
         wallHack.setFocusable(false);
@@ -101,12 +102,10 @@ public class SettingsMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (wallHack.isSelected()) {
                     System.out.println("Włączenie wallhacka");
-                    value = true;
-                    gamePanel.wallHack(value);
-                } else {
+                    gamePanel.wallHack(true);
+                } else if (!wallHack.isSelected()) {
                     System.out.println("Wyłączenie wallhacka");
-                    value = false;
-                    gamePanel.wallHack(value);
+                    gamePanel.wallHack(false);
                 }
             }
         });

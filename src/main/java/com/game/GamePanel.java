@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements ActionListener {
     int snakeSize = 8;
     private int appleX;
     private int appleY;
+    private int badAppleX;
+    private int badAppleY;
     private boolean running;
     Timer timer;
     private Random random;
@@ -32,6 +34,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int score = 0;
     RootPanel rootPanel;
     static boolean isWallHack;
+    private int appleEaten = 0;
 
 
     public GamePanel(RootPanel gameFrame) {
@@ -51,6 +54,7 @@ public class GamePanel extends JPanel implements ActionListener {
         snakeX = new int[GAME_UNIT];
         snakeY = new int[GAME_UNIT];
         newApple();
+        drawBadApple();
         direction = 'R';
         timer = new Timer(DELAY, this);
         timer.start();
@@ -58,8 +62,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public static void wallHack(boolean value) {
+    public void wallHack(boolean value) {
         isWallHack = value;
+
     }
 
     public void newApple() {
@@ -73,8 +78,28 @@ public class GamePanel extends JPanel implements ActionListener {
                 newApple();
                 snakeSize++;
                 score += 23;
+                appleEaten++;
             }
         }
+    }
+
+    public void drawBadApple(){
+        badAppleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
+        badAppleY = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
+    }
+
+    public void checkBadApple() {
+        for (int i = snakeSize; i > 0; i--) {
+            if (snakeX[0] == badAppleX && snakeY[0] == badAppleY) {
+                drawBadApple();
+                snakeSize++;
+                score -= 23;
+            }
+        }
+    }
+
+    public void eclipseEffect(){
+
     }
 
     public void crash() {
@@ -93,7 +118,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void wallHackCrash() {
+    public void wallHackMode() {
         if (isWallHack) {
             for (int i = 0; i < snakeSize; i++) {
                 if (snakeX[0] == snakeX[i + 1] && snakeY[0] == snakeY[i + 1]) {
@@ -155,6 +180,8 @@ public class GamePanel extends JPanel implements ActionListener {
         if (running) {
             g.setColor(RED);
             g.fillOval(appleX, appleY, UNIT, UNIT);
+            g.setColor(MAGENTA);
+            g.fillOval(badAppleX, badAppleY, UNIT, UNIT);
 
             for (int i = 0; i < snakeSize; i++) {
                 if (i == 0) {
@@ -170,6 +197,11 @@ public class GamePanel extends JPanel implements ActionListener {
             FontMetrics fontMetrics = getFontMetrics(g.getFont());
             g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
 
+            g.setColor(RED);
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
+            g.drawString("Apple: " + appleEaten, SCREEN_WIDTH - fontMetrics1.stringWidth("Apple: " + appleEaten) / 2, 30);
+
         } else
             gameOver();
     }
@@ -181,7 +213,7 @@ public class GamePanel extends JPanel implements ActionListener {
             move();
             checkApple();
             crash();
-            wallHackCrash();
+            wallHackMode();
 
         }
         repaint();

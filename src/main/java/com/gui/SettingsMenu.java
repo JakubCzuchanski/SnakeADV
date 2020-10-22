@@ -13,7 +13,6 @@ public class SettingsMenu extends JPanel {
 
     RootPanel rootPanel;
     GamePanel gamePanel;
-    public JCheckBox wallHack;
     int soundLvl = 10;
 
 
@@ -40,7 +39,7 @@ public class SettingsMenu extends JPanel {
 
 
 
-        wallHack = new JCheckBox("Wall Hack");
+        JCheckBox wallHack = new JCheckBox("Wall Hack");
         wallHack.setFont(new Font("Chiller", Font.BOLD, 30));
         wallHack.setSize(60, 60);
         wallHack.setFocusable(false);

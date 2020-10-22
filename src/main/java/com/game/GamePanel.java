@@ -91,6 +91,9 @@ public class GamePanel extends JPanel implements ActionListener {
                 timer.stop();
             }
         }
+    }
+
+    public void wallHackCrash() {
         if (isWallHack) {
             for (int i = 0; i < snakeSize; i++) {
                 if (snakeX[0] == snakeX[i + 1] && snakeY[0] == snakeY[i + 1]) {
@@ -178,6 +181,7 @@ public class GamePanel extends JPanel implements ActionListener {
             move();
             checkApple();
             crash();
+            wallHackCrash();
 
         }
         repaint();

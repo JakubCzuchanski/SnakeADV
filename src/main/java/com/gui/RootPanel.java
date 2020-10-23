@@ -25,7 +25,6 @@ public class RootPanel extends JRootPane {
         gamePanel = new GamePanel(this);
         gameOver = new GameOver(this);
 
-
         contentPane.add(mainMenu);
 
     }
@@ -33,11 +32,11 @@ public class RootPanel extends JRootPane {
     public void switchPanel(JPanel panel) throws InterruptedException {
 
         contentPane.removeAll();
-        if (panel.equals(gamePanel)){
-            GamePanel newGamePanel = new GamePanel(this);
+        if (panel.equals(gamePanel)) {
+            GamePanel newGamePanel = new GamePanel(this); // tworzy nową grę przy zmianie planszy
             contentPane.add(newGamePanel);
             newGamePanel.requestFocus();
-        }else {
+        } else {
             contentPane.add(panel);
         }
         contentPane.repaint();

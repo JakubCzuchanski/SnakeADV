@@ -1,6 +1,7 @@
 package com.gui;
 
 import com.jdbc.AddPlayerToDataBase;
+import com.jdbc.FindPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -172,7 +173,7 @@ public class SignUpMenu extends JPanel {
 
     private boolean verifyLogin(String login) {
 
-        if (login.length() >= 3 && login.matches("[a-zA-Z0-9]+")) {
+        if (login.length() >= 3 && login.matches("[a-zA-Z0-9]+") && !(new FindPlayer().returnPlayer(login))) {
             return true;
         } else {
             loginTxtField.setBackground(Color.RED);

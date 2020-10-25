@@ -16,7 +16,7 @@ public class SettingsMenu extends JPanel {
     private int soundLvl = 10;
 
 
-    public SettingsMenu(RootPanel gameFrame) throws InterruptedException {
+    public SettingsMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
         gamePanel = new GamePanel(this.rootPanel);
 
@@ -96,23 +96,20 @@ public class SettingsMenu extends JPanel {
         });
 
 
-        wallHack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (wallHack.isSelected()) {
-                    System.out.println("Włączenie wallhacka");
-                    gamePanel.wallHack(true);
-                } else if (!wallHack.isSelected()) {
-                    System.out.println("Wyłączenie wallhacka");
-                    gamePanel.wallHack(false);
-                }
+        wallHack.addActionListener(e -> {
+            gamePanel.wallHack(wallHack.isSelected());
+            if (wallHack.isSelected()) {
+                System.out.println("Włączenie wallhacka");
+//                gamePanel.wallHack(true);
+            } else if (!wallHack.isSelected()) {
+                System.out.println("Wyłączenie wallhacka");
+//                gamePanel.wallHack(false);
             }
         });
         wallHack.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 wallHack.setForeground(Color.yellow);
             }
-
             public void mouseExited(MouseEvent evt) {
                 wallHack.setForeground(Color.green);
             }

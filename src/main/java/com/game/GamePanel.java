@@ -70,7 +70,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void wallHack(boolean value) {
         isWallHack = value;
-
     }
 
     public void newApple() {

@@ -33,10 +33,10 @@ public class RootPanel extends JRootPane {
 
         contentPane.removeAll();
         if (panel.equals(gamePanel)) {
-            GamePanel newGamePanel = new GamePanel(this); // tworzy nową grę przy zmianie planszy
-            contentPane.add(newGamePanel);
-            newGamePanel.requestFocus();
-        } else {
+            contentPane.add(new GamePanel(this)).requestFocus();
+        } else if(panel.equals(scoreBoardMenu)) {
+            contentPane.add(new ScoreBoardMenu(this)).requestFocus();
+        }else {
             contentPane.add(panel);
         }
         contentPane.repaint();

@@ -10,7 +10,7 @@ public class FindPlayer extends DataBaseConst {
 
         try {
             connectToDb();
-            String query = "SELECT Score, loginPlayer, namePlayer FROM Player LEFT JOIN Score ON Player.id_player = Score.id_player ORDER BY score DESC;";
+            String query = "SELECT coalesce(Score, 0) Score, loginPlayer AS Login, namePlayer AS Name FROM Player LEFT JOIN Score ON Player.id_player = Score.id_player ORDER BY score DESC;";
             ResultSet rs = stmt.executeQuery(query);
             disconnectDB();
             return rs;

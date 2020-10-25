@@ -11,9 +11,9 @@ import java.awt.event.MouseEvent;
 
 public class SettingsMenu extends JPanel {
 
-    RootPanel rootPanel;
-    GamePanel gamePanel;
-    int soundLvl = 10;
+    private RootPanel rootPanel;
+    private GamePanel gamePanel;
+    private int soundLvl = 10;
 
 
     public SettingsMenu(RootPanel gameFrame) throws InterruptedException {
@@ -36,7 +36,6 @@ public class SettingsMenu extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(eclipseEffect, gbc);
-
 
 
         JCheckBox wallHack = new JCheckBox("Wall Hack");
@@ -80,9 +79,9 @@ public class SettingsMenu extends JPanel {
 
 
         eclipseEffect.addActionListener(e -> {
-            if (eclipseEffect.isSelected()){
+            if (eclipseEffect.isSelected()) {
                 System.out.println("Włączenie eclipse effect");
-            }else {
+            } else {
                 System.out.println("Wyłączenie eclipse effect");
             }
         });
@@ -90,6 +89,7 @@ public class SettingsMenu extends JPanel {
             public void mouseEntered(MouseEvent evt) {
                 eclipseEffect.setForeground(Color.yellow);
             }
+
             public void mouseExited(MouseEvent evt) {
                 eclipseEffect.setForeground(Color.green);
             }
@@ -112,6 +112,7 @@ public class SettingsMenu extends JPanel {
             public void mouseEntered(MouseEvent evt) {
                 wallHack.setForeground(Color.yellow);
             }
+
             public void mouseExited(MouseEvent evt) {
                 wallHack.setForeground(Color.green);
             }
@@ -120,10 +121,10 @@ public class SettingsMenu extends JPanel {
 
         muteButton.addActionListener(e -> {
             System.out.println("Wycisz");
-            if (soundSlider.getValue() > 0){
+            if (soundSlider.getValue() > 0) {
                 soundLvl = soundSlider.getValue();
                 soundSlider.setValue(0);
-            }else {
+            } else {
                 soundSlider.setValue(soundLvl);
             }
 
@@ -146,5 +147,7 @@ public class SettingsMenu extends JPanel {
 
     }
 
-
+    public int getSoundLvl() {
+        return soundLvl;
+    }
 }

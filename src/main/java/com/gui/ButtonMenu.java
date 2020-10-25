@@ -22,6 +22,7 @@ public class ButtonMenu extends JButton {
                 setForeground(Color.yellow);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
+                new Sounds().playSound("src/sounds/biteSound.wav");
                 setForeground(Color.green);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {

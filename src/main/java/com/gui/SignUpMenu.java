@@ -139,11 +139,9 @@ public class SignUpMenu extends JPanel {
 
                 new AddPlayerToDataBase(nameTxtField.getText(), loginTxtField.getText(), passConfTxtField.getPassword());
 
-                try {
-                    rootPanel.switchPanel(rootPanel.getMainMenu());
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+
+                rootPanel.switchPanel(rootPanel.getMainMenu());
+
             } else {
                 System.out.println("podano błędne dane");
             }
@@ -152,11 +150,9 @@ public class SignUpMenu extends JPanel {
 
         menuButton.addActionListener(e -> {
             System.out.println("Wróc do menu");
-            try {
-                rootPanel.switchPanel(rootPanel.getMainMenu());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+
+            rootPanel.switchPanel(rootPanel.getMainMenu());
+
         });
     }
 

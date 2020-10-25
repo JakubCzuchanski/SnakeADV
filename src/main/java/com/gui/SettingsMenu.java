@@ -138,11 +138,7 @@ public class SettingsMenu extends JPanel {
 
         menuButton.addActionListener(e -> {
             System.out.println("Wróc do menu");
-            try {
-                rootPanel.switchPanel(rootPanel.getMainMenu());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            rootPanel.switchPanel(rootPanel.getMainMenu());
         });
 
     }

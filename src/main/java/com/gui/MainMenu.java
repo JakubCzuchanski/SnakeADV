@@ -77,49 +77,40 @@ public class MainMenu extends JPanel {
 
         playButton.addActionListener(e -> {
             System.out.println("Tutaj zacznie granie");
-            try {
+
                 rootPanel.switchPanel(rootPanel.getGamePanel());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+
+
         });
 
         scoreButton.addActionListener(e -> {
             System.out.println("Punkciki");
-            try {
+
                 rootPanel.switchPanel(rootPanel.getScoreBoardMenu());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+
         });
 
 
         signInButton.addActionListener(e -> {
             System.out.println("Logowanie");
-            try {
+
                 rootPanel.switchPanel(rootPanel.getSignInMenu());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+
         });
 
 
         signUpButton.addActionListener(e -> {
             System.out.println("Rejestracja");
-            try {
+
                 rootPanel.switchPanel(rootPanel.getSignUpMenu());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+
         });
 
         settingButton.addActionListener(e -> {
             System.out.println("Ustawienia");
-            try {
+
                 rootPanel.switchPanel(rootPanel.getSettingsMenu());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+
         });
 
         exitButton.addActionListener(e -> {

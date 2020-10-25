@@ -21,11 +21,8 @@ public class MyKeyEvent extends KeyAdapter {
             gamePanel.score = 0;
             gamePanel.snakeSize = 8;
             gamePanel.timer.stop();
-            try {
-                gamePanel.startGame();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            gamePanel.startGame();
+
 
         }
         switch (e.getKeyCode()) {

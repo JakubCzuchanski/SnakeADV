@@ -4,10 +4,14 @@ import com.gui.RootPanel;
 import com.gui.SettingsMenu;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import static java.awt.Color.*;
@@ -38,8 +42,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private int timeGame = 0;
 
 
-
-    public GamePanel(RootPanel gameFrame) throws InterruptedException {
+    public GamePanel(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
         setLayout(null);
         setBackground(BLACK);
@@ -50,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public void startGame() throws InterruptedException {
+    public void startGame() {
         running = true;
         random = new Random();
         snakeX = new int[GAME_UNIT];
@@ -90,13 +93,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void drawBadApple() {
 
-            badAppleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
-            badAppleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT)) * UNIT;
-        }
+        badAppleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
+        badAppleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT)) * UNIT;
+    }
 
 
-
-    public void stoper() throws InterruptedException {
+    public void stoper() {
 
         new Thread(() -> {
             while (true) {
@@ -190,7 +192,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver() throws InterruptedException {
+    public void gameOver() {
         rootPanel.switchPanel(rootPanel.getGameOver());
 
     }
@@ -199,43 +201,60 @@ public class GamePanel extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (running) {
-            g.setColor(RED);
-            g.fillOval(appleX, appleY, UNIT, UNIT);
-            g.setColor(MAGENTA);
-            g.fillOval(badAppleX, badAppleY, UNIT, UNIT);
+        try {
+            final BufferedImage imgSnakeBody = ImageIO.read(new File("src/images/SnakeBody.jpeg"));
+            final BufferedImage imgSnakeHeadR = ImageIO.read(new File("src/images/SnakeHeadR.jpeg"));
+            final BufferedImage imgSnakeHeadL = ImageIO.read(new File("src/images/SnakeHeadL.jpeg"));
+            final BufferedImage imgSnakeHeadU = ImageIO.read(new File("src/images/SnakeHeadU.jpeg"));
+            final BufferedImage imgSnakeHeadD = ImageIO.read(new File("src/images/SnakeHeadD.jpeg"));
 
 
-            for (int i = 0; i < snakeSize; i++) {
-                if (i == 0) {
-                    g.setColor(GREEN);
-                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
-                } else {
-                    g.setColor(BLUE);
-                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+            if (running) {
+                g.setColor(RED);
+                g.fillOval(appleX, appleY, UNIT, UNIT);
+                g.setColor(MAGENTA);
+                g.fillOval(badAppleX, badAppleY, UNIT, UNIT);
+
+
+                for (int i = 0; i < snakeSize; i++) {
+                    if (i == 0) {
+                        if (direction == 'R')
+                            g.drawImage(imgSnakeHeadR, snakeX[i], snakeY[i], this);
+                        else if (direction == 'L')
+                            g.drawImage(imgSnakeHeadL, snakeX[i], snakeY[i], this);
+                        else if (direction == 'U')
+                            g.drawImage(imgSnakeHeadU, snakeX[i], snakeY[i], this);
+                        else if (direction == 'D')
+                            g.drawImage(imgSnakeHeadD, snakeX[i], snakeY[i], this);
+                        else
+                            System.out.println("ERROR");
+                    } else {
+//                    g.setColor(BLUE);
+//                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+                        g.drawImage(imgSnakeBody, snakeX[i], snakeY[i], this);
+                    }
                 }
-            }
-            g.setColor(RED);
-            g.setFont(new Font("Arial", Font.BOLD, 30));
-            FontMetrics fontMetrics = getFontMetrics(g.getFont());
-            g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
+                g.setColor(RED);
+                g.setFont(new Font("Arial", Font.BOLD, 30));
+                FontMetrics fontMetrics = getFontMetrics(g.getFont());
+                g.drawString("Score: " + score, SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + score), 30);
 
-            g.setColor(RED);
-            g.setFont(new Font("Arial", Font.BOLD, 30));
-            FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
-            g.drawString("Apple: " + appleEaten, (SCREEN_WIDTH - fontMetrics1.stringWidth("Apple: " + appleEaten)) / 30, 30);
+                g.setColor(RED);
+                g.setFont(new Font("Arial", Font.BOLD, 30));
+                FontMetrics fontMetrics1 = getFontMetrics(g.getFont());
+                g.drawString("Apple: " + appleEaten, (SCREEN_WIDTH - fontMetrics1.stringWidth("Apple: " + appleEaten)) / 30, 30);
 
-            g.setColor(RED);
-            g.setFont(new Font("Arial", Font.BOLD, 30));
-            FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
-            g.drawString("Time: " + timeGame, (SCREEN_WIDTH - fontMetrics2.stringWidth("Time: " + timeGame)) / 5, 30);
+                g.setColor(RED);
+                g.setFont(new Font("Arial", Font.BOLD, 30));
+                FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
+                g.drawString("Time: " + timeGame, (SCREEN_WIDTH - fontMetrics2.stringWidth("Time: " + timeGame)) / 5, 30);
 
-        } else {
-            try {
+            } else {
                 gameOver();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

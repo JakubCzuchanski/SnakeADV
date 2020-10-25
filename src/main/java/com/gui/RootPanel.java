@@ -29,7 +29,7 @@ public class RootPanel extends JRootPane {
 
     }
 
-    public void switchPanel(JPanel panel) throws InterruptedException {
+    public void switchPanel(JPanel panel){
 
         contentPane.removeAll();
         if (panel.equals(gamePanel)) {

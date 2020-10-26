@@ -100,6 +100,26 @@ public class SignUpMenu extends JPanel {
         gbc.gridy = 6;
         add(menuButton, gbc);
 
+        gbc.insets = new Insets(5, 5, 5, 5);
+        JLabel signUpInfo = new JLabel("Zarejestrowano");
+        signUpInfo.setFont(new Font("Chiller", Font.BOLD, 35));
+        signUpInfo.setForeground(Color.green);
+        signUpInfo.setVisible(false);
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        add(signUpInfo, gbc);
+
+        gbc.insets = new Insets(5, 5, 5, 5);
+        JLabel badSignUpInfo = new JLabel("Wpisano niepoprawne dane");
+        badSignUpInfo.setFont(new Font("Chiller", Font.BOLD, 35));
+        badSignUpInfo.setForeground(Color.RED);
+        badSignUpInfo.setVisible(false);
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        add(badSignUpInfo, gbc);
+
         nameTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 nameTxtField.setBackground(Color.white);
@@ -135,14 +155,36 @@ public class SignUpMenu extends JPanel {
 
 
             if (verifyName(nameTxtField.getText()) & verifyLogin(loginTxtField.getText()) & verifyPass(passTxtField, passConfTxtField)) {
+
                 System.out.println("Zarejestrowano");
+                nameTxtField.setBackground(Color.GREEN);
+                loginTxtField.setBackground(Color.GREEN);
+                passTxtField.setBackground(Color.GREEN);
+                passConfTxtField.setBackground(Color.GREEN);
 
                 new AddPlayerToDataBase(nameTxtField.getText(), loginTxtField.getText(), passConfTxtField.getPassword());
 
-
-                rootPanel.switchPanel(rootPanel.getMainMenu());
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(int i = 0; i < 2; i++){
+                          try{
+                              Thread.sleep(2000);
+                          } catch (Exception ex) {
+                              ex.printStackTrace();
+                          }
+                          if(i == 0){
+                              badSignUpInfo.setVisible(false);
+                              signUpInfo.setVisible(true);
+                          }
+                          else
+                              rootPanel.switchPanel(rootPanel.getMainMenu());
+                        }
+                    }
+                }).start();
             } else {
+                signUpInfo.setVisible(false);
+                badSignUpInfo.setVisible(true);
                 System.out.println("podano błędne dane");
             }
         });

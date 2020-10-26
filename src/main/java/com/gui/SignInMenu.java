@@ -116,7 +116,7 @@ public class SignInMenu extends JPanel {
                                 badLoginInfo.setVisible(false);
                                 loginInfo.setVisible(true);
                             }
-                            if (i == 1)
+                            else
                                 rootPanel.switchPanel(rootPanel.getMainMenu());
                         }
                     }

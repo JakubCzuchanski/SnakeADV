@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FindPlayer extends DataBaseConst{
+public class FindPlayer extends DataBaseConst {
 
 
     public ResultSet getScores() {
@@ -43,15 +43,18 @@ public class FindPlayer extends DataBaseConst{
     public boolean signInPlayer(String login, char[] password) {
         try {
             ArrayList<Character> charListPassword = new ArrayList<Character>();
-            for(char c: password){
+
+            for (char c : password) {
                 charListPassword.add(c);
             }
+
             connectToDb();
             Array array = conn.createArrayOf("varchar", charListPassword.toArray());
             String query = "SELECT * FROM Player WHERE loginPlayer='" + login + "' AND passwordplayer='" + array + "';";
             ResultSet rs = stmt.executeQuery(query);
             disconnectDB();
             return rs.next();
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

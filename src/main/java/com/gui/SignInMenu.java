@@ -83,6 +83,16 @@ public class SignInMenu extends JPanel {
         gbc.gridy = 8;
         add(loginInfo, gbc);
 
+        gbc.insets = new Insets(20, 20, 20, 20);
+        JLabel badLoginInfo = new JLabel("Niepoprawny login lub hasło");
+        badLoginInfo.setFont(new Font("Chiller", Font.BOLD, 50));
+        badLoginInfo.setForeground(Color.RED);
+        badLoginInfo.setVisible(false);
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        add(badLoginInfo, gbc);
+
 
         loginButton.addActionListener(e -> {
 
@@ -102,41 +112,35 @@ public class SignInMenu extends JPanel {
                             } catch (InterruptedException ex) {
                                 ex.printStackTrace();
                             }
-                            if(i == 0)
+                            if (i == 0) {
+                                badLoginInfo.setVisible(false);
                                 loginInfo.setVisible(true);
-                            if(i == 1)
+                            }
+                            if (i == 1)
                                 rootPanel.switchPanel(rootPanel.getMainMenu());
                         }
                     }
-
                 }).start();
-
-
             } else {
                 loginTxtField.setBackground(Color.RED);
                 passTxtField.setBackground(Color.RED);
-                System.out.println("Niepoprawny login lub hasło");
+                System.out.println("Niepoprawny login lub haslo");
+                loginInfo.setVisible(false);
+                badLoginInfo.setVisible(true);
             }
         });
 
         guestButton.addActionListener(e ->
-
         {
             System.out.println("Tutaj zagrasz jako gość");
-
             rootPanel.switchPanel(rootPanel.getGamePanel());
-
-
         });
 
 
         menuButton.addActionListener(e ->
-
         {
             System.out.println("Wróc do menu");
-
             rootPanel.switchPanel(rootPanel.getMainMenu());
-
         });
 
     }

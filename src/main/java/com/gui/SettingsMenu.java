@@ -100,10 +100,10 @@ public class SettingsMenu extends JPanel {
             gamePanel.wallHack(wallHack.isSelected());
             if (wallHack.isSelected()) {
                 System.out.println("Włączenie wallhacka");
-//                gamePanel.wallHack(true);
+
             } else if (!wallHack.isSelected()) {
                 System.out.println("Wyłączenie wallhacka");
-//                gamePanel.wallHack(false);
+
             }
         });
         wallHack.addMouseListener(new MouseAdapter() {

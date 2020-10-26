@@ -67,7 +67,7 @@ public class ScoreBoardMenu extends JPanel {
         return table;
     }
 
-    // kradzione z stackoverflow - zmiana z ResultSet na DefaultTableModel
+
     public static DefaultTableModel buildTableModel(ResultSet rs) {
 
         ResultSetMetaData metaData;

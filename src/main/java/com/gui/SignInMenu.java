@@ -1,5 +1,6 @@
 package com.gui;
 
+import com.game.GamePanel;
 import com.jdbc.FindPlayer;
 
 import javax.swing.*;
@@ -11,9 +12,11 @@ import java.util.function.ToDoubleBiFunction;
 public class SignInMenu extends JPanel {
 
     RootPanel rootPanel;
+    GamePanel gamePanel;
 
     public SignInMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
+        gamePanel = new GamePanel(this.rootPanel);
 
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
@@ -97,7 +100,7 @@ public class SignInMenu extends JPanel {
         loginButton.addActionListener(e -> {
 
             if (new FindPlayer().signInPlayer(loginTxtField.getText(), passTxtField.getPassword())) {
-
+                gamePanel.login = loginTxtField.getText();
                 System.out.println(loginTxtField.getText() + " " + passTxtField.getPassword());
                 System.out.println("Zalogowano");
                 loginTxtField.setBackground(Color.GREEN);

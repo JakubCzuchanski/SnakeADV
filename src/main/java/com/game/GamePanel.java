@@ -40,6 +40,8 @@ public class GamePanel extends JPanel implements ActionListener {
     static boolean isWallHack;
     private int appleEaten = 0;
     private int timeGame = 0;
+    public static String login = "";
+
 
 
     public GamePanel(RootPanel gameFrame) {
@@ -228,8 +230,7 @@ public class GamePanel extends JPanel implements ActionListener {
                         else
                             System.out.println("ERROR");
                     } else {
-//                    g.setColor(BLUE);
-//                    g.fillRect(snakeX[i], snakeY[i], UNIT, UNIT);
+
                         g.drawImage(imgSnakeBody, snakeX[i], snakeY[i], this);
                     }
                 }
@@ -247,6 +248,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 g.setFont(new Font("Arial", Font.BOLD, 30));
                 FontMetrics fontMetrics2 = getFontMetrics(g.getFont());
                 g.drawString("Time: " + timeGame, (SCREEN_WIDTH - fontMetrics2.stringWidth("Time: " + timeGame)) / 5, 30);
+
+                g.setColor(RED);
+                g.setFont(new Font("Arial", Font.BOLD, 30));
+                FontMetrics fontMetrics3 = getFontMetrics(g.getFont());
+                g.drawString("Player: " + login, SCREEN_WIDTH / 2, 30);
 
             } else {
                 gameOver();

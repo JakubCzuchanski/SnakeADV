@@ -1,6 +1,12 @@
 package com.jdbc;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public abstract class DataBaseConst {
 
@@ -20,10 +26,10 @@ public abstract class DataBaseConst {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 ResultSetMetaData rsmd = rs.getMetaData();
-                int coumnCounter = rsmd.getColumnCount();
+                int columnCounter = rsmd.getColumnCount();
                 StringBuilder result = new StringBuilder();
 
-                for (int i = 1; i <= coumnCounter; i++) {
+                for (int i = 1; i <= columnCounter; i++) {
                     result = result.append(rsmd.getColumnName(i) + ": \u001B[33m" + rs.getString(i) + "\u001B[0m \t");
                 }
                 result.append("\n");

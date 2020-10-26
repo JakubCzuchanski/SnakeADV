@@ -1,7 +1,11 @@
 package com.gui;
 
+import com.jdbc.FindPlayer;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.function.ToDoubleBiFunction;
 
 public class SignInMenu extends JPanel {
@@ -69,18 +73,50 @@ public class SignInMenu extends JPanel {
         gbc.gridy = 4;
         add(menuButton, gbc);
 
+        gbc.insets = new Insets(20, 20, 20, 20);
+        JLabel loginInfo = new JLabel("Zalogowano");
+        loginInfo.setFont(new Font("Chiller", Font.BOLD, 50));
+        loginInfo.setForeground(Color.green);
+        loginInfo.setVisible(false);
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        add(loginInfo, gbc);
+
+
         loginButton.addActionListener(e -> {
-            //TODO zaimplementować logowanie
 
-            System.out.println(loginTxtField.getText());
-            System.out.println(passTxtField.getPassword());
+            if (new FindPlayer().signInPlayer(loginTxtField.getText(), passTxtField.getPassword())) {
 
-//                loginTxtField
-//                passTxtField
+                System.out.println(loginTxtField.getText() + " " + passTxtField.getPassword());
+                System.out.println("Zalogowano");
+                loginTxtField.setBackground(Color.GREEN);
+                passTxtField.setBackground(Color.GREEN);
 
-            System.out.println("Zaloguj!");
-//            rootPanel.switchPanel(rootPanel.getMainMenu());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < 2; i++) {
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException ex) {
+                                ex.printStackTrace();
+                            }
+                            if(i == 0)
+                                loginInfo.setVisible(true);
+                            if(i == 1)
+                                rootPanel.switchPanel(rootPanel.getMainMenu());
+                        }
+                    }
 
+                }).start();
+
+
+            } else {
+                loginTxtField.setBackground(Color.RED);
+                passTxtField.setBackground(Color.RED);
+                System.out.println("Niepoprawny login lub hasło");
+            }
         });
 
         guestButton.addActionListener(e ->
@@ -88,7 +124,7 @@ public class SignInMenu extends JPanel {
         {
             System.out.println("Tutaj zagrasz jako gość");
 
-                rootPanel.switchPanel(rootPanel.getGamePanel());
+            rootPanel.switchPanel(rootPanel.getGamePanel());
 
 
         });
@@ -99,7 +135,7 @@ public class SignInMenu extends JPanel {
         {
             System.out.println("Wróc do menu");
 
-                rootPanel.switchPanel(rootPanel.getMainMenu());
+            rootPanel.switchPanel(rootPanel.getMainMenu());
 
         });
 

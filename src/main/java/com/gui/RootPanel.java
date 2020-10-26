@@ -6,7 +6,7 @@ import com.game.GamePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class RootPanel extends JRootPane {
+public class RootPanel extends JRootPane  {
 
     private MainMenu mainMenu;
     private SettingsMenu settingsMenu;

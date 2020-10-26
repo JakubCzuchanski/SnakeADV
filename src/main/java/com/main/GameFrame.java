@@ -9,7 +9,7 @@ public class GameFrame extends JFrame {
 
 	RootPanel rootPanel ;
 
-	public GameFrame() throws InterruptedException {
+	public GameFrame()  {
 		rootPanel = new RootPanel();
 
 		setTitle("SnakeADV");

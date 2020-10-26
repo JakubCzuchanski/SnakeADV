@@ -16,7 +16,7 @@ public class RootPanel extends JRootPane {
     private ScoreBoardMenu scoreBoardMenu;
     private GameOver gameOver;
 
-    public RootPanel() throws InterruptedException {
+    public RootPanel() {
         mainMenu = new MainMenu(this);
         settingsMenu = new SettingsMenu(this);
         signInMenu = new SignInMenu(this);

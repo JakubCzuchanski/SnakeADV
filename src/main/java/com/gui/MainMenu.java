@@ -2,6 +2,7 @@ package com.gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,28 +17,26 @@ public class MainMenu extends JPanel {
     public MainMenu(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
 
-        try{
+        try {
             backgroundImage = ImageIO.read(new File("src/images/MenuBackground.jpeg"));
-        }catch (IOException e){
+        } catch (IOException e) {
             System.err.println(e);
             e.printStackTrace();
             setBackground(Color.BLACK);
         }
 
-
-
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
-
-        gbc.insets = new Insets(20,20,50,20);
+        gbc.insets = new Insets(20, 20, 50, 20);
         ButtonMenu playButton = new ButtonMenu("Play!");
         gbc.gridwidth = 2;
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(playButton, gbc);
 
-        gbc.insets = new Insets(20,20,20,20);
+
+
+        gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu scoreButton = new ButtonMenu("Score Board");
         gbc.gridwidth = 2;
         gbc.gridx = 0;
@@ -45,7 +44,8 @@ public class MainMenu extends JPanel {
         add(scoreButton, gbc);
 
 
-        gbc.insets = new Insets(20,20,20,20);
+
+        gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu signInButton = new ButtonMenu("Login");
         gbc.gridwidth = 1;
         gbc.gridx = 0;
@@ -53,7 +53,7 @@ public class MainMenu extends JPanel {
         add(signInButton, gbc);
 
 
-        gbc.insets = new Insets(20,20,20,20);
+        gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu signUpButton = new ButtonMenu("SignUP");
         gbc.gridwidth = 1;
         gbc.gridx = 1;
@@ -61,14 +61,14 @@ public class MainMenu extends JPanel {
         add(signUpButton, gbc);
 
 
-        gbc.insets = new Insets(20,20,20,20);
+        gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu settingButton = new ButtonMenu("Settings");
         gbc.gridwidth = 2;
         gbc.gridx = 0;
         gbc.gridy = 3;
         add(settingButton, gbc);
 
-        gbc.insets = new Insets(20,20,20,20);
+        gbc.insets = new Insets(20, 20, 20, 20);
         ButtonMenu exitButton = new ButtonMenu("Exit");
         gbc.gridwidth = 2;
         gbc.gridx = 0;
@@ -78,7 +78,7 @@ public class MainMenu extends JPanel {
         playButton.addActionListener(e -> {
             System.out.println("Tutaj zacznie granie");
 
-                rootPanel.switchPanel(rootPanel.getGamePanel());
+            rootPanel.switchPanel(rootPanel.getGamePanel());
 
 
         });
@@ -86,7 +86,7 @@ public class MainMenu extends JPanel {
         scoreButton.addActionListener(e -> {
             System.out.println("Punkciki");
 
-                rootPanel.switchPanel(rootPanel.getScoreBoardMenu());
+            rootPanel.switchPanel(rootPanel.getScoreBoardMenu());
 
         });
 
@@ -94,7 +94,7 @@ public class MainMenu extends JPanel {
         signInButton.addActionListener(e -> {
             System.out.println("Logowanie");
 
-                rootPanel.switchPanel(rootPanel.getSignInMenu());
+            rootPanel.switchPanel(rootPanel.getSignInMenu());
 
         });
 
@@ -102,14 +102,14 @@ public class MainMenu extends JPanel {
         signUpButton.addActionListener(e -> {
             System.out.println("Rejestracja");
 
-                rootPanel.switchPanel(rootPanel.getSignUpMenu());
+            rootPanel.switchPanel(rootPanel.getSignUpMenu());
 
         });
 
         settingButton.addActionListener(e -> {
             System.out.println("Ustawienia");
 
-                rootPanel.switchPanel(rootPanel.getSettingsMenu());
+            rootPanel.switchPanel(rootPanel.getSettingsMenu());
 
         });
 

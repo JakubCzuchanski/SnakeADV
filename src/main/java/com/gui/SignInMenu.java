@@ -87,7 +87,7 @@ public class SignInMenu extends JPanel {
         add(loginInfo, gbc);
 
         gbc.insets = new Insets(20, 20, 20, 20);
-        JLabel badLoginInfo = new JLabel("Niepoprawny login lub hasło");
+        JLabel badLoginInfo = new JLabel("Niepoprawny login lub haslo");
         badLoginInfo.setFont(new Font("Chiller", Font.BOLD, 50));
         badLoginInfo.setForeground(Color.RED);
         badLoginInfo.setVisible(false);

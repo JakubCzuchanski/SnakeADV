@@ -61,4 +61,30 @@ public class FindPlayer extends DataBaseConst {
         return false;
     }
 
+    public void updatePlayerScore(String login, int score) {
+        try {
+            if (!login.equals("")) {
+
+                connectToDb();
+                String query = "SELECT id_player FROM Player WHERE loginplayer ='" + login + "';";
+                ResultSet rs = stmt.executeQuery(query);
+                int id = 0;
+
+                while (rs.next()) {
+                    id = rs.getInt("id_player");
+                    System.out.println("id: " + id);
+                }
+
+                prepStmt = conn.prepareStatement("INSERT INTO Score (id_player, score) VALUES (?, ?)");
+                prepStmt.setInt(1, id);
+                prepStmt.setInt(2, score);
+                prepStmt.executeUpdate();
+                System.out.println("dodano do id: " + id + ", " + score + "punktów");
+                disconnectDB();
+            } else
+                System.out.println("Grasz niezalogowany");
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

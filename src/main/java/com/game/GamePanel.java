@@ -2,6 +2,7 @@ package com.game;
 
 import com.gui.RootPanel;
 import com.gui.SettingsMenu;
+import com.jdbc.FindPlayer;
 
 
 import javax.imageio.ImageIO;
@@ -256,6 +257,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             } else {
                 gameOver();
+                new FindPlayer().updatePlayerScore(login, score);
             }
 
         } catch (IOException e) {

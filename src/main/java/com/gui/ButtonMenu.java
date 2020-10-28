@@ -7,8 +7,12 @@ import java.awt.font.TextLayout;
 
 public class ButtonMenu extends JButton {
 
+    String text;
+
     public ButtonMenu(String text) {
         super(text);
+        this.text = text;
+
 
         setFont(new Font("Chiller", Font.BOLD, 50));
         setForeground(Color.green);
@@ -22,7 +26,8 @@ public class ButtonMenu extends JButton {
                 setForeground(Color.yellow);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                //new Sounds().playSound("src/sounds/biteSound.wav");
+
+                new Sounds().playSound("src/sounds/biteSound2.wav");
                 setForeground(Color.green);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -31,4 +36,10 @@ public class ButtonMenu extends JButton {
         });
 
     }
+
+//    public void paint(Graphics g){
+//        g.drawString(text,0,0);
+//        g.setColor(Color.RED);
+//
+//    }
 }

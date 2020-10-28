@@ -2,6 +2,7 @@ package com.game;
 
 import com.gui.RootPanel;
 import com.gui.SettingsMenu;
+import com.gui.Sounds;
 import com.jdbc.FindPlayer;
 
 
@@ -84,6 +85,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void checkApple() {
         for (int i = snakeSize; i > 0; i--) {
             if (snakeX[0] == appleX && snakeY[0] == appleY) {
+                new Sounds().soundAppleEaten("src/sounds/apple.wav");
                 newApple();
                 snakeSize++;
                 score += 23;

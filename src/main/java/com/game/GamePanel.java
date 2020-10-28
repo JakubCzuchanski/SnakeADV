@@ -45,7 +45,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public static String login = "";
 
 
-
     public GamePanel(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
         setLayout(null);
@@ -213,11 +212,12 @@ public class GamePanel extends JPanel implements ActionListener {
             final BufferedImage imgSnakeHeadL = ImageIO.read(new File("src/images/SnakeHeadL.jpeg"));
             final BufferedImage imgSnakeHeadU = ImageIO.read(new File("src/images/SnakeHeadU.jpeg"));
             final BufferedImage imgSnakeHeadD = ImageIO.read(new File("src/images/SnakeHeadD.jpeg"));
+            final BufferedImage imgApple = ImageIO.read(new File("src/images/Apple.png"));
 
 
             if (running) {
-                g.setColor(RED);
-                g.fillOval(appleX, appleY, UNIT, UNIT);
+
+                g.drawImage(imgApple,appleX,appleY,this);
                 g.setColor(MAGENTA);
                 g.fillOval(badAppleX, badAppleY, UNIT, UNIT);
 

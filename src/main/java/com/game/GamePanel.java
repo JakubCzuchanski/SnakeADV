@@ -139,9 +139,11 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             if (snakeX[0] < 0 || snakeX[0] > SCREEN_WIDTH || snakeY[0] < 0 || snakeY[0] > SCREEN_HEIGHT) {
                 running = false;
+
             }
             if (!running) {
                 timer.stop();
+
             }
         }
     }
@@ -198,7 +200,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver() {
         rootPanel.switchPanel(rootPanel.getGameOver());
-
+        new Sounds().soundCrash("src/sounds/crash.wav");
     }
 
     @Override

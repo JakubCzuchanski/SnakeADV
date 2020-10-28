@@ -41,6 +41,21 @@ public class Sounds {
         }).start();
     }
 
+    public void soundCrash(String filePath){
+
+        new Thread(() -> {
+            try{
+                File sound = new File(filePath);
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(sound);
+                Clip clip = AudioSystem.getClip();
+                clip.open(inputStream);
+                clip.start();
+            } catch (UnsupportedAudioFileException | IOException |LineUnavailableException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
 }
 
 

@@ -19,6 +19,7 @@ public class MainMenu extends JPanel {
 
         try {
             backgroundImage = ImageIO.read(new File("src/images/MenuBackground.jpeg"));
+            new Sounds().playSound("src/sounds/menu.wav");
         } catch (IOException e) {
             System.err.println(e);
             e.printStackTrace();

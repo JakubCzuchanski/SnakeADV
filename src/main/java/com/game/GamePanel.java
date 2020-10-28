@@ -84,7 +84,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void checkApple() {
         for (int i = snakeSize; i > 0; i--) {
             if (snakeX[0] == appleX && snakeY[0] == appleY) {
-                new Sounds().soundAppleEaten("src/sounds/apple.wav");
+                new Sounds().playSound("src/sounds/apple.wav");
                 newApple();
                 snakeSize++;
                 score += 23;
@@ -199,7 +199,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver() {
         rootPanel.switchPanel(rootPanel.getGameOver());
-        new Sounds().soundCrash("src/sounds/crash.wav");
+        new Sounds().playSound("src/sounds/crash.wav");
     }
 
     @Override
@@ -213,14 +213,13 @@ public class GamePanel extends JPanel implements ActionListener {
             final BufferedImage imgSnakeHeadU = ImageIO.read(new File("src/images/SnakeHeadU.jpeg"));
             final BufferedImage imgSnakeHeadD = ImageIO.read(new File("src/images/SnakeHeadD.jpeg"));
             final BufferedImage imgApple = ImageIO.read(new File("src/images/Apple.png"));
+            final BufferedImage imgAppleBad = ImageIO.read(new File("src/images/Applebad.png"));
 
 
             if (running) {
 
                 g.drawImage(imgApple,appleX,appleY,this);
-                g.setColor(MAGENTA);
-                g.fillOval(badAppleX, badAppleY, UNIT, UNIT);
-
+                g.drawImage(imgAppleBad, badAppleX, badAppleY, this);
 
                 for (int i = 0; i < snakeSize; i++) {
                     if (i == 0) {

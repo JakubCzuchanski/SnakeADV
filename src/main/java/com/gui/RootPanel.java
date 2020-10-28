@@ -6,7 +6,7 @@ import com.game.GamePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class RootPanel extends JRootPane  {
+public class RootPanel extends JRootPane {
 
     private MainMenu mainMenu;
     private SettingsMenu settingsMenu;
@@ -24,19 +24,19 @@ public class RootPanel extends JRootPane  {
         scoreBoardMenu = new ScoreBoardMenu(this);
         gamePanel = new GamePanel(this);
         gameOver = new GameOver(this);
-
         contentPane.add(mainMenu);
 
     }
 
-    public void switchPanel(JPanel panel){
+    public void switchPanel(JPanel panel) {
 
         contentPane.removeAll();
         if (panel.equals(gamePanel)) {
             contentPane.add(new GamePanel(this)).requestFocus();
-        } else if(panel.equals(scoreBoardMenu)) {
+
+        } else if (panel.equals(scoreBoardMenu)) {
             contentPane.add(new ScoreBoardMenu(this)).requestFocus();
-        }else {
+        } else {
             contentPane.add(panel);
         }
         contentPane.repaint();

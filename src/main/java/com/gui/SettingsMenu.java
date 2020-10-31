@@ -4,16 +4,14 @@ import com.game.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class SettingsMenu extends JPanel {
-
+    private JSlider soundSlider;
     private RootPanel rootPanel;
     private GamePanel gamePanel;
-    private int soundLvl = 10;
+    private static int soundLvl;
 
 
     public SettingsMenu(RootPanel gameFrame) {
@@ -51,7 +49,7 @@ public class SettingsMenu extends JPanel {
         add(wallHack, gbc);
 
 
-        JSlider soundSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 10);
+        soundSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 5);
         soundSlider.setMajorTickSpacing(5);
         soundSlider.setBackground(null);
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -129,6 +127,7 @@ public class SettingsMenu extends JPanel {
 
         soundSlider.addChangeListener(e -> {
             int value = soundSlider.getValue();
+            Sounds.setVolume(soundSlider.getValue());
             System.out.println(value);
 
         });
@@ -140,7 +139,7 @@ public class SettingsMenu extends JPanel {
 
     }
 
-    public int getSoundLvl() {
+    public static int getSoundLvl() {
         return soundLvl;
     }
 }

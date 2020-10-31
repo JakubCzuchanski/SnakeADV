@@ -1,7 +1,6 @@
 package com.main;
 
 import com.gui.RootPanel;
-import com.gui.Sounds;
 
 
 import javax.swing.JFrame;

@@ -2,11 +2,14 @@ package com.gui;
 
 import javax.sound.sampled.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
 public class Sounds {
 
     private static float volume;
+
 
     public synchronized void playSound(String filePath) {
         System.out.println(volume + " głośność");
@@ -19,6 +22,7 @@ public class Sounds {
                 AudioInputStream inputStream = AudioSystem.getAudioInputStream(sound);
                 Clip clip = AudioSystem.getClip();
                 clip.open(inputStream);
+
                 FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 float range = gainControl.getMaximum() - gainControl.getMinimum();
                 float gain = (range * volume) + gainControl.getMinimum();
@@ -37,6 +41,7 @@ public class Sounds {
 
     }
 
+
     public float getVolume() {
         return volume;
     }
@@ -44,6 +49,7 @@ public class Sounds {
     public static void setVolume(float volume1) {
         volume = volume1 / 10;
     }
+
 }
 
 

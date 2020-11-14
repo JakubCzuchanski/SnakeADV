@@ -11,7 +11,7 @@ public class SettingsMenu extends JPanel {
     private JSlider soundSlider;
     private RootPanel rootPanel;
     private GamePanel gamePanel;
-    private static int soundLvl;
+    private int soundLvl;
 
 
     public SettingsMenu(RootPanel gameFrame) {
@@ -140,7 +140,7 @@ public class SettingsMenu extends JPanel {
 
     }
 
-    public static int getSoundLvl() {
+    public int getSoundLvl() {
         return soundLvl;
     }
 }

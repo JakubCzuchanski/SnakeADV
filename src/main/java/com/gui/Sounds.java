@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Sounds {
 
-    private static float volume;
+    private static float volume = 0.5f;
 
     public synchronized void playSound(String filePath) {
         System.out.println(volume + " głośność");
@@ -23,7 +23,7 @@ public class Sounds {
                 float range = gainControl.getMaximum() - gainControl.getMinimum();
                 float gain = (range * volume) + gainControl.getMinimum();
                 if (filePath.equals("src/sounds/menu.wav")) {
-                    gainControl.setValue(-10.0f);
+                    gainControl.setValue(-15.0f);
                     clip.loop(5);
 
                 } else

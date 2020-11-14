@@ -1,15 +1,17 @@
 package com.gui;
 
 import javax.sound.sampled.*;
+import java.awt.*;
 import java.io.*;
 
 public class Sounds {
 
-    private static float volume = SettingsMenu.getSoundLvl();
+    private static float volume;
 
     public synchronized void playSound(String filePath) {
         System.out.println(volume + " głośność");
         new Thread(() -> {
+
             try {
 
                 System.out.println(filePath + " Sound played");
@@ -20,10 +22,14 @@ public class Sounds {
                 FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 float range = gainControl.getMaximum() - gainControl.getMinimum();
                 float gain = (range * volume) + gainControl.getMinimum();
-                gainControl.setValue(gain);
+                if (filePath.equals("src/sounds/menu.wav")) {
+                    gainControl.setValue(-10.0f);
+                    clip.loop(5);
 
-
+                } else
+                    gainControl.setValue(gain);
                 clip.start();
+
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 e.printStackTrace();
             }

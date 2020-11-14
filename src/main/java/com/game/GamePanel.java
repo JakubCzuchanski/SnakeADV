@@ -40,10 +40,12 @@ public class GamePanel extends JPanel implements ActionListener {
     int score = 0;
     RootPanel rootPanel;
     static boolean isWallHack;
+    static boolean isEclipseEffect;
     private int appleEaten = 0;
     private int timeGame = 0;
     public static String login = "";
-
+    private boolean isAppleVisible = true;
+    private static boolean isBadAppleVisible = true;
 
     public GamePanel(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
@@ -52,7 +54,6 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setFocusable(true);
         this.addKeyListener(new MyKeyEvent(this));
         startGame();
-
 
     }
 
@@ -75,6 +76,10 @@ public class GamePanel extends JPanel implements ActionListener {
         isWallHack = value;
     }
 
+    public void eclipseEffectSettingsMenu(boolean value) {
+        isEclipseEffect = value;
+    }
+
     public void newApple() {
 
         appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
@@ -82,13 +87,15 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkApple() {
-        for (int i = snakeSize; i > 0; i--) {
-            if (snakeX[0] == appleX && snakeY[0] == appleY) {
-                new Sounds().playSound("src/sounds/apple.wav");
-                newApple();
-                snakeSize++;
-                score += 23;
-                appleEaten++;
+        if (isAppleVisible) {
+            for (int i = snakeSize; i > 0; i--) {
+                if (snakeX[0] == appleX && snakeY[0] == appleY) {
+                    new Sounds().playSound("src/sounds/apple.wav");
+                    newApple();
+                    snakeSize++;
+                    score += 23;
+                    appleEaten++;
+                }
             }
         }
     }
@@ -98,6 +105,20 @@ public class GamePanel extends JPanel implements ActionListener {
 
         badAppleX = random.nextInt((int) (SCREEN_WIDTH / UNIT)) * UNIT;
         badAppleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT)) * UNIT;
+    }
+
+    public void badAppleVisibleMode() {
+
+        new Thread(() -> {
+            try {
+                isBadAppleVisible = false;
+                Thread.sleep(12000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            drawBadApple();
+            isBadAppleVisible = true;
+        }).start();
     }
 
 
@@ -116,17 +137,21 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkBadApple() {
-        for (int i = snakeSize; i > 0; i--) {
-            if (snakeX[0] == badAppleX && snakeY[0] == badAppleY) {
-                drawBadApple();
-                score -= 23;
+        if (isBadAppleVisible && isEclipseEffect) {
+            for (int i = snakeSize; i > 0; i--) {
+                if (snakeX[0] == badAppleX && snakeY[0] == badAppleY) {
+                    new Sounds().playSound("src/sounds/badapple.wav");
+                    changeVisibleApple();
+                    badAppleVisibleMode();
+                    score = 0;
+                }
             }
-
         }
     }
-
-    public void eclipseEffect() {
-
+    public void changeVisibleApple(){
+        isAppleVisible = false;
+        newApple();
+        eclipseEffectMode();
     }
 
     public void crash() {
@@ -173,6 +198,16 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    public void eclipseEffectMode() {
+
+        if (isEclipseEffect) {
+            for (int i = 0; i < snakeSize; i++) {
+                if (((appleX + 100) > snakeX[0]) && ((appleX - 100) < snakeX[0]) && ((appleY + 100) > snakeY[0]) && ((appleY - 100) < snakeY[0])) {
+                    isAppleVisible = true;
+                }
+            }
+        }
+    }
 
     public void move() {
         for (int i = snakeSize; i > 0; i--) {
@@ -218,8 +253,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
             if (running) {
 
-                g.drawImage(imgApple,appleX,appleY,this);
-                g.drawImage(imgAppleBad, badAppleX, badAppleY, this);
+                if (isAppleVisible)
+                    g.drawImage(imgApple, appleX, appleY, this);
+                if (isBadAppleVisible && isEclipseEffect)
+                    g.drawImage(imgAppleBad, badAppleX, badAppleY, this);
 
                 for (int i = 0; i < snakeSize; i++) {
                     if (i == 0) {
@@ -277,6 +314,7 @@ public class GamePanel extends JPanel implements ActionListener {
             checkBadApple();
             crash();
             wallHackMode();
+            eclipseEffectMode();
         }
         repaint();
     }

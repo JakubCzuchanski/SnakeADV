@@ -1,5 +1,7 @@
 package com.main;
 
+import com.gui.Sounds;
+
 import java.awt.EventQueue;
 
 public class Main {
@@ -9,6 +11,7 @@ public class Main {
 			public void run() {
 				try {
 					new GameFrame();
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

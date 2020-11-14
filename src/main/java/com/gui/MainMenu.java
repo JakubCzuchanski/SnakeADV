@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,6 +22,9 @@ public class MainMenu extends JPanel {
         try {
             backgroundImage = ImageIO.read(new File("src/images/MenuBackground.jpeg"));
             new Sounds().playSound("src/sounds/menu.wav");
+
+
+
         } catch (IOException e) {
             System.err.println(e);
             e.printStackTrace();
@@ -120,6 +125,7 @@ public class MainMenu extends JPanel {
         });
 
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

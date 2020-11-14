@@ -77,6 +77,7 @@ public class SettingsMenu extends JPanel {
 
 
         eclipseEffect.addActionListener(e -> {
+            gamePanel.eclipseEffectSettingsMenu(eclipseEffect.isSelected());
             if (eclipseEffect.isSelected()) {
                 System.out.println("Włączenie eclipse effect");
             } else {

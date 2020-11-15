@@ -1,5 +1,15 @@
 # SnakeADV
 
+Simple snake game by Patryk Likus & Jakub Czuchański created in Java, using Swing to display the game, and JDBC to store scores and players logins.
+This app was built as a midterm project during the SDA course and was somewhat inspired by some youtube tutorials.
+
+The game itself has two optional modes:
+- Passing through walls (WallHack)
+- Poisoned apple, which resets scores and hides a good apple in a few fields from the snake
+
+The program verifies the registration and login process, thanks to which the player has the opportunity to create his own account, with a unique login. The scores of each player are stored on a scoreboard.
+
+
 ![Snake main](https://user-images.githubusercontent.com/65070389/99181169-0670cf00-272d-11eb-94c5-95729bbd5ea0.jpg)
 
 

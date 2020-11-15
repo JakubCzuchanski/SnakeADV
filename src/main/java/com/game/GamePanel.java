@@ -112,11 +112,12 @@ public class GamePanel extends JPanel implements ActionListener {
         new Thread(() -> {
             try {
                 isBadAppleVisible = false;
+                drawBadApple();
                 Thread.sleep(12000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            drawBadApple();
+
             isBadAppleVisible = true;
         }).start();
     }
@@ -235,6 +236,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void gameOver() {
         rootPanel.switchPanel(rootPanel.getGameOver());
         new Sounds().playSound("src/sounds/crash.wav");
+
     }
 
     @Override
@@ -298,6 +300,7 @@ public class GamePanel extends JPanel implements ActionListener {
             } else {
                 gameOver();
                 new FindPlayer().updatePlayerScore(login, score);
+
             }
 
         } catch (IOException e) {

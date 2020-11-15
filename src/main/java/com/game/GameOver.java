@@ -10,6 +10,7 @@ public class GameOver extends JPanel {
 
     RootPanel rootPanel;
 
+
     public GameOver(RootPanel gameFrame) {
         this.rootPanel = gameFrame;
 
@@ -26,15 +27,17 @@ public class GameOver extends JPanel {
         gbc.gridy = 0;
         add(gameOverLabel, gbc);
 
-// TODO wyświetlanie punktów ?????
-//        gbc.insets = new Insets(20, 20, 20, 20);
-//        JLabel scoreLabel = new JLabel( ????????????????????? );
-//        gameOverLabel.setFont(new Font("Chiller", Font.BOLD, 230));
-//        gameOverLabel.setForeground(Color.yellow);
-//        gbc.gridwidth = 1;
-//        gbc.gridx = 0;
-//        gbc.gridy = 1;
-//        add(scoreLabel, gbc);
+
+
+      /*  gbc.insets = new Insets(20, 20, 20, 20);
+
+        JLabel scoreLabel = new JLabel("Score ");
+        scoreLabel.setFont(new Font("Chiller", Font.BOLD, 150));
+        scoreLabel.setForeground(Color.yellow);
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(scoreLabel, gbc);*/
 
         ButtonMenu playButton = new ButtonMenu("Play again");
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -69,6 +72,5 @@ public class GameOver extends JPanel {
         });
 
     }
-
 
 }
